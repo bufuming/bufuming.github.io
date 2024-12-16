@@ -1,0 +1,25 @@
+body,h2,p,input
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+body
+{
+	font-family: system-ui;
+	font-size: 14px;
+}
+a{color:#999; text-decoration: none; }
+header{height: 40px; margin: 0 auto;}
+header .hleft{float: left;height: 128px; height: 70px;}
+#mainlogo{width: 1920px; height: 600px; background-color: #cfeeee;}
+.loginbg{width: 1030px; height: 600px; background: url("太极图.jpg");margin: 0 auto;box-sizing: border-box;padding: 140px 0 0 600px;}
+.loginf{width:300 px; height: 300px; padding: 20px 30px; background: #f5f8fd; border-radius:20px; border: 1px solid #4faccb;}
+.loginf p{margin-top: 20px;}
+.name, .pass{width: 250px; height: 24px; border: 1px; solid #38a1bf}
+.name{background: url("太极图.png") no-repeat 5px center #fff;}
+.pass{background: url("太极图.png") no-repeat 5px center #fff;}
+.btn{width: 278px; height: 40px; border: 1px solid #6b5d50; border-radius: 3px; background: #3bb7ea; font-size: 20px; color: FFF; }
+.reg{font-size: 16px;}
+.copyright{width: 1920px; height: 60px; background: #333333; text-align: center;}
+.copyright a{line-height: 3.75rem;}

@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding:0;
+    border:0;
+}
+ul, li{
+    list-style: none;
+}
+body{                               
+    font-family:"微软雅黑";
+    font-size:14px;
+    color:#000;
+    background:url(../img/背景.jpg);
+    width: 1920px;
+}
+a {                                 
+    font-famliy:"微软雅黑";
+    text-decoration: none;
+    color:#000;
+    font-size:14px;
+}
+/*头部*/
+header{                              
+    width:1920px;
+    height:100px;
+    margin:0px 0px;
+
+}
+/*导航栏*/
+nav{
+    width: 100%;
+    height: 42px;
+    background: rgb(28, 75, 169);                           
+}
+nav .navCon{
+    width: 1920px;
+    height: 42px;
+    margin: 0 auto;
+    position: relative;                         /*相对定位*/
+    z-index: 111;                                                   /*设置层级 菜单显示在最上层,不被其他内容遮盖*/
+}
+.navCon li{
+    width: 120px;
+    height: 42px;
+    float:left;
+    text-align: center;
+}
+.navCon li a{
+    display: block;                                     /*块级元素*/
+    width: 120px;                                               /*宽高*/
+    height: 42px;
+    line-height: 42px;                                          /*行高*/
+    color: #FFF;
+}
+.navCon li ul{
+    width: 150px;
+    display: none;
+}
+.navCon li:hover ul{
+    display: block;
+}
+.navCon li ul li{
+    width: 150px;
+    height: 40px;
+    background:rgb(28, 75, 169);
+    border-bottom: 1px solid rgb(0, 52, 162);                                      /*下边框*/
+    line-height: 40px;
+    text-align: center;
+}
+.navCon li ul li a{
+    display: block;
+    width: 150px;
+    height: 40px;
+    text-align: center;
+    color:rgb(255, 255, 255);
+    line-height: 40px;
+}
