@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .scroll-container {
+            width: 300px;
+            height: 400px;
+            margin: 20px auto;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .scroll-list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            position: relative;
+        }
+
+        .scroll-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            background: white;
+            transition: background 0.3s;
+        }
+
+        .scroll-item:hover {
+            background: #f0f0f0;
+        }
+
+        .controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 10px;
+            background: rgba(255,255,255,0.9);
+            text-align: center;
+        }
+
+        button {
+            padding: 5px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-container">
+        <ul class="scroll-list" id="scrollList">
+            <!-- 动态添加内容 -->
+        </ul>
+        <div class="controls">
+            <button onclick="toggleScroll()">暂停/继续</button>
+            <button onclick="scrollSpeed('up')">加速</button>
+            <button onclick="scrollSpeed('down')">减速</button>
+        </div>
+    </div>
+
+    <script>
+        let scrolling = true;
+        let speed = 1;
+        let position = 0;
+        const list = document.getElementById('scrollList');
+
+        // 生成测试数据
+        function generateItems() {
+            for(let i = 1; i <= 20; i++) {
+                const li = document.createElement('li');
+                li.className = 'scroll-item';
+                li.textContent = `滚动项目 ${i}`;
+                list.appendChild(li);
+            }
+        }
+
+        // 滚动动画
+        function scroll() {
+            if (!scrolling) return;
+
+            position -= speed;
+            list.style.transform = `translateY(${position}px)`;
+
+            // 循环滚动
+            if (Math.abs(position) >= list.children[0].offsetHeight) {
+                position = 0;
+                list.appendChild(list.children[0]);
+            }
+
+            requestAnimationFrame(scroll);
+        }
+
+        // 切换滚动状态
+        function toggleScroll() {
+            scrolling = !scrolling;
+            if (scrolling) scroll();
+        }
+
+        // 调整速度
+        function scrollSpeed(direction) {
+            if (direction === 'up') {
+                speed = Math.min(speed + 0.5, 5);
+            } else {
+                speed = Math.max(speed - 0.5, 0.5);
+            }
+        }
+
+        // 鼠标悬停暂停
+        list.addEventListener('mouseenter', () => scrolling = false);
+        list.addEventListener('mouseleave', () => {
+            scrolling = true;
+            scroll();
+        });
+
+        // 初始化
+        generateItems();
+        scroll();
+    </script>
+</body>
+</html>
