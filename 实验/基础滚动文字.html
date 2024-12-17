@@ -1,68 +1,210 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>优化滚动字幕</title>
     <style>
-        /* 横向滚动 */
-        .scroll-horizontal {
+        /* 容器样式 */
+        .scroll-container {
             width: 100%;
             height: 50px;
-            overflow: hidden;
-            white-space: nowrap;
-            background: #f0f0f0;
-        }
-
-        .scroll-horizontal p {
-            display: inline-block;
-            padding-left: 100%;
-            animation: scrollLeft 20s linear infinite;
-        }
-
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
-
-        /* 竖向滚动 */
-        .scroll-vertical {
-            height: 200px;
-            overflow: hidden;
             position: relative;
+            overflow: hidden;
             background: #f5f5f5;
+            margin: 20px 0;
         }
 
-        .scroll-vertical ul {
-            padding: 0;
-            margin: 0;
-            list-style: none;
-            animation: scrollUp 10s linear infinite;
+        /* 滚动内容包装器 */
+        .scroll-wrapper {
+            position: absolute;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            animation: scrollText 20s linear infinite;
         }
 
-        .scroll-vertical li {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
+        /* 滚动内容 */
+        .scroll-text {
+            display: inline-block;
+            padding: 0 50px;
+            color: #333;
+            font-size: 16px;
         }
 
-        @keyframes scrollUp {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-100%); }
+        /* 分隔符 */
+        .separator {
+            color: #999;
+            margin: 0 20px;
+        }
+
+        /* 滚动动画 */
+        @keyframes scrollText {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* 鼠标悬停暂停 */
+        .scroll-container:hover .scroll-wrapper {
+            animation-play-state: paused;
+        }
+
+        /* 控制面板 */
+        .controls {
+            margin: 20px;
+            text-align: center;
+        }
+
+        .control-btn {
+            padding: 8px 15px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 4px;
+            background: #4834d4;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background: #686de0;
+            transform: translateY(-2px);
+        }
+
+        /* 速度指示器 */
+        .speed-indicator {
+            margin-top: 10px;
+            color: #666;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .scroll-text {
+                font-size: 14px;
+                padding: 0 30px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 横向滚动 -->
-    <div class="scroll-horizontal">
-        <p>这是一条横向滚动的消息，可以一直滚动下去...</p>
+    <div class="scroll-container" id="scrollContainer">
+        <div class="scroll-wrapper" id="scrollWrapper">
+            <!-- 内容将通过JavaScript动态生成 -->
+        </div>
     </div>
 
-    <!-- 竖向滚动 -->
-    <div class="scroll-vertical">
-        <ul>
-            <li>新闻1: 这是第一条新闻</li>
-            <li>新闻2: 这是第二条新闻</li>
-            <li>新闻3: 这是第三条新闻</li>
-            <li>新闻4: 这是第四条新闻</li>
-            <li>新闻5: 这是第五条新闻</li>
-        </ul>
+    <div class="controls">
+        <button class="control-btn" onclick="toggleScroll()">暂停/继续</button>
+        <button class="control-btn" onclick="changeSpeed('faster')">加快</button>
+        <button class="control-btn" onclick="changeSpeed('slower')">减慢</button>
+        <div class="speed-indicator" id="speedIndicator">当前速度: 正常</div>
     </div>
+
+    <script>
+        // 配置选项
+        const config = {
+            messages: [
+                "📢 重要通知：系统升级维护中",
+                "🎉 最新活动：双十一大促即将开始",
+                "💡 温馨提示：请注意账号安全",
+                "🌟 新功能上线：全新界面发布",
+                "📱 移动端更新：手机版本已更新"
+            ],
+            baseSpeed: 20, // 基础速度（秒）
+            currentSpeed: 20,
+            isScrolling: true
+        };
+
+        // 初始化滚动内容
+        function initScroll() {
+            const wrapper = document.getElementById('scrollWrapper');
+            wrapper.innerHTML = ''; // 清空现有内容
+
+            // 创建两组内容确保无缝滚动
+            for (let i = 0; i < 2; i++) {
+                config.messages.forEach((message, index) => {
+                    const textDiv = document.createElement('div');
+                    textDiv.className = 'scroll-text';
+                    textDiv.textContent = message;
+
+                    // 添加分隔符（除了最后一条消息）
+                    if (index < config.messages.length - 1) {
+                        const separator = document.createElement('span');
+                        separator.className = 'separator';
+                        separator.textContent = '|';
+                        textDiv.appendChild(separator);
+                    }
+
+                    wrapper.appendChild(textDiv);
+                });
+            }
+
+            // 设置动画速度
+            updateScrollSpeed();
+        }
+
+        // 切换滚动状态
+        function toggleScroll() {
+            config.isScrolling = !config.isScrolling;
+            const wrapper = document.getElementById('scrollWrapper');
+            wrapper.style.animationPlayState = config.isScrolling ? 'running' : 'paused';
+        }
+
+        // 更改滚动速度
+        function changeSpeed(direction) {
+            if (direction === 'faster') {
+                config.currentSpeed = Math.max(5, config.currentSpeed - 5);
+            } else {
+                config.currentSpeed = Math.min(40, config.currentSpeed + 5);
+            }
+
+            updateScrollSpeed();
+            updateSpeedIndicator();
+        }
+
+        // 更新滚动速度
+        function updateScrollSpeed() {
+            const wrapper = document.getElementById('scrollWrapper');
+            wrapper.style.animationDuration = `${config.currentSpeed}s`;
+        }
+
+        // 更新速度指示器
+        function updateSpeedIndicator() {
+            const indicator = document.getElementById('speedIndicator');
+            let speedText = '正常';
+            
+            if (config.currentSpeed < config.baseSpeed) {
+                speedText = '快速';
+            } else if (config.currentSpeed > config.baseSpeed) {
+                speedText = '慢速';
+            }
+
+            indicator.textContent = `当前速度: ${speedText}`;
+        }
+
+        // 监听动画结束事件
+        function handleAnimationEnd() {
+            const wrapper = document.getElementById('scrollWrapper');
+            if (config.isScrolling) {
+                wrapper.style.animation = 'none';
+                wrapper.offsetHeight; // 触发重排
+                wrapper.style.animation = `scrollText ${config.currentSpeed}s linear infinite`;
+            }
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            initScroll();
+            const wrapper = document.getElementById('scrollWrapper');
+            wrapper.addEventListener('animationend', handleAnimationEnd);
+        });
+
+        // 窗口大小改变时重新初始化
+        window.addEventListener('resize', () => {
+            initScroll();
+        });
+    </script>
 </body>
 </html>
