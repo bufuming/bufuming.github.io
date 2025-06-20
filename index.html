@@ -4,6 +4,35 @@
     <meta charset="utf-8">
     <title>初创-网站</title>
     <link rel="stylesheet" href="./css/index.css" type="text/css">
+    <script type="text/javascript">
+        window.onload = function() { //滚动文字效果
+            var timer = null;                           //定义定时器
+            var speed = -1;                                 //速度
+            var od = document.getElementById("wrapper");            //获取ul
+            var au = od.getElementsByTagName('ul')[0];              //获取ul下的li
+            var ali = au.getElementsByTagName('li');                //获取ul下的li
+            au.innerHTML = au.innerHTML + au.innerHTML;             //复制ul
+            au.style.width = ali[0].offsetWidth * ali.length + 'px';            //设置ul宽度
+            timer = setInterval(move, 30)                           //设置定时器    
+
+            function move() {                                           //定时器函数
+                if (au.offsetLeft < -au.offsetWidth / 2) {                  //判断是否到头
+                    au.style.left = '0';                                //
+                }
+                if (au.offsetLeft > 0) {
+                    au.style.left = -au.offsetWidth / 2 + 'px';
+                }
+                au.style.left = au.offsetLeft + speed + 'px';
+            }
+            od.onmouseover = function() {
+                clearInterval(timer);
+            }
+            od.onmouseout = function() {
+                timer = setInterval(move, 30)
+            }
+        }
+    </script>
+
     </head>
     <body>
         <!-- 头部开始-->
@@ -50,9 +79,9 @@
                 </li>
                 <li><a href="#" target="_blank">招生就业</a>
                     <ul>
-                        <li><a href="https://www.goodjobs.cn/" target="_blank">就业人才网</a></li>
-                        <li><a href="https://www.jobui.com/company/7377/jobs/all/fuyang/" target="_blank">比亚迪官网</a></li>
-                        <li><a href="https://www.ah.gov.cn/index.html" target="_blank">扶贫车间</a></li>
+                        <li><a href="https://www.goodjobs.cn/" target="_self">就业人才网</a></li>
+                        <li><a href="https://www.jobui.com/company/7377/jobs/all/fuyang/" target="_self">比亚迪官网</a></li>
+                        <li><a href="https://www.ah.gov.cn/index.html" target="_self">扶贫车间</a></li>
                     </ul>
                 </li>
                 <li><a href="#" target="_blank">公共服务</a>
@@ -72,7 +101,12 @@
                     </ul>
                 </li>
                 <li><a href="#" target="_blank">共同致富</a></li>
-                <li><a href="#" target="_blank">个人舞台</a></li>
+                <li><a href="#" target="_blank">个人舞台</a>
+                    <ul>
+                        <li><a href="html/安徽文旅.html" target="_self">web作业</a></li>
+                        <li><a href="#" target="_self">待开发</a></li>
+                    </ul>
+                </li>
                 <li><a href="#" target="_blank">创业创新</a></li>
                 <li><a href="#" target="_blank">村内活动</a></li>
                 <li><a href="#" target="_blank">统一信息门户</a></li>
@@ -101,5 +135,32 @@
             </div>
         </div>
         <!-- blank滚动文字结束-->
+
+
+        <!-- 主体开始 -->
+        <div class="main">
+            <div class="first line"></div>
+            <div class="second line"></div>
+            <div class="third line"></div>
+            <div class="fourth line"></div>
+            <div class="fifth line"></div>  
+        </div>
+        <!-- 主体结束 -->
+        <!-- 页面底部开始 -->
+        <footer>
+            <!-- 友情链接开始 -->
+            <div class="links">
+
+            </div>
+            <!-- 友情链接结束 -->
+
+            <!-- 版权信息开始 -->
+            <div class="information">
+
+            </div>
+            <!-- 版权信息结束 -->
+        </footer>
+        <!-- 页面底部结束 -->
+
     </body>
 </html>

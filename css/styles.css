@@ -1,0 +1,202 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+}
+.header img {
+    width: 100%;
+}
+nav {
+    width: 100%;
+    background-color: pink;
+}
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+nav ul li {
+    padding: 15px 30px;
+    cursor: pointer;
+}
+
+nav ul li:hover {
+    background-color: #cc85ad;
+}
+
+.main-content {
+    padding: 20px;
+}
+
+.section {
+    margin-bottom: 40px;
+}
+
+.section h2 {
+    color: green;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.subsection {
+    margin-bottom: 20px;
+    padding: 10px 10px;
+    border-bottom: black 1px dashed;
+}
+
+.subsection h3 {
+    color: green;
+    margin-bottom: 10px;
+}
+
+.subsection p {
+    line-height: 1.6;
+    text-indent: 2em;
+}
+
+.ticket-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+ 
+
+}
+
+.ticket-item {
+    width: 24%;
+    border: 1px solid #ccc;
+
+    
+}
+
+.ticket-item img {
+    width: 100%;
+    height: auto;
+    
+
+
+}
+
+.ticket-item p {
+    margin-top: 5px;
+
+}
+
+.price {
+    color: red;
+}
+
+.more {
+    display: inline-block;
+    float: right;
+}
+
+footer {
+    text-align: center;
+    background-color: white;
+}
+
+
+/* 轮播图容器 */
+.banner-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto 20px;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.banner-slider {
+    position: relative;
+    height: 100%;
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slide {
+    min-width: 100%;
+    position: relative;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 15px 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* 轮播导航 */
+.slider-nav {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.prev-btn, .next-btn {
+    background: rgba(232, 58, 144, 0.8);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.prev-btn:hover, .next-btn:hover {
+    background: #c52a7a;
+    transform: scale(1.1);
+}
+
+.slider-dots {
+    display: flex;
+    margin: 0 15px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dot.active {
+    background: white;
+    transform: scale(1.2);
+}
